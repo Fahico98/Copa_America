@@ -38,8 +38,18 @@ def regJugador():
             skill,
             seleccion.lower().title()
          )
-         validacion = jugador.validarDatos()
-         if (validacion[0]):
+         numeroRepetido = False
+         validacion = [None, None]
+         for jugador in selecciones[seleccion.lower().title()]["jugadores"]:
+            if(jugador.getNumero() == numero):
+               numeroRepetido = True
+               break
+         if(numeroRepetido):
+            validacion[0] = False
+            validacion[1] = "\nEl numero que ingresó para el jugador ya existe en la selección...\n"
+         else:
+            validacion = jugador.validarDatos()
+         if(validacion[0]):
             selecciones[seleccion.lower().title()]["jugadores"].append(jugador)
             mejoresJugadores.evaluarJugador(jugador)
             print("\n***** OPERACIÓN EXITOSA *****\n")
